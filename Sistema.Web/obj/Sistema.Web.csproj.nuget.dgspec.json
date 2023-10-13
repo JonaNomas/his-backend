@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Web\\Sistema.Web.csproj": {}
+    "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Web\\Sistema.Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Datos\\Sistema.Datos.csproj": {
+    "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Datos\\Sistema.Datos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Datos\\Sistema.Datos.csproj",
+        "projectUniqueName": "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Datos\\Sistema.Datos.csproj",
         "projectName": "Sistema.Datos",
-        "projectPath": "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Datos\\Sistema.Datos.csproj",
+        "projectPath": "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Datos\\Sistema.Datos.csproj",
         "packagesPath": "C:\\Users\\jonat\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Datos\\obj\\",
+        "outputPath": "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Datos\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jonat\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Entidades\\Sistema.Entidades.csproj": {
-                "projectPath": "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Entidades\\Sistema.Entidades.csproj"
+              "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Entidades\\Sistema.Entidades.csproj": {
+                "projectPath": "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Entidades\\Sistema.Entidades.csproj"
               }
             }
           }
@@ -78,14 +78,14 @@
         }
       }
     },
-    "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Entidades\\Sistema.Entidades.csproj": {
+    "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Entidades\\Sistema.Entidades.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Entidades\\Sistema.Entidades.csproj",
+        "projectUniqueName": "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Entidades\\Sistema.Entidades.csproj",
         "projectName": "Sistema.Entidades",
-        "projectPath": "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Entidades\\Sistema.Entidades.csproj",
+        "projectPath": "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Entidades\\Sistema.Entidades.csproj",
         "packagesPath": "C:\\Users\\jonat\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Entidades\\obj\\",
+        "outputPath": "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Entidades\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jonat\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -132,14 +132,14 @@
         }
       }
     },
-    "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Web\\Sistema.Web.csproj": {
+    "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Web\\Sistema.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Web\\Sistema.Web.csproj",
+        "projectUniqueName": "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Web\\Sistema.Web.csproj",
         "projectName": "Sistema.Web",
-        "projectPath": "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Web\\Sistema.Web.csproj",
+        "projectPath": "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Web\\Sistema.Web.csproj",
         "packagesPath": "C:\\Users\\jonat\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Web\\obj\\",
+        "outputPath": "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jonat\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -156,8 +156,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Datos\\Sistema.Datos.csproj": {
-                "projectPath": "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Datos\\Sistema.Datos.csproj"
+              "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Datos\\Sistema.Datos.csproj": {
+                "projectPath": "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Datos\\Sistema.Datos.csproj"
               }
             }
           }

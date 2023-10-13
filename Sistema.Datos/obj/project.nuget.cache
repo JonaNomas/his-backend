@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "naZgBf2cSOIWxqLvvh7+c55Uhx/lnlDGTqMYvW9BU0WXlJ5dNhzeZonKFOPo8j60w9NvZSzyMyZpZ534i5TwTA==",
+  "dgSpecHash": "CJJblP71N3M7LpqrpQOHEWNf00dvQIQsJ7ZFhAuaN8JKCeFvR6byHUqBU6eLCv1/famaRLwPq/9O4UPTKpXXbA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jonat\\source\\repos\\Sistema\\Sistema.Datos\\Sistema.Datos.csproj",
+  "projectFilePath": "C:\\Users\\jonat\\Documents\\GitHub\\his-backend\\Sistema.Datos\\Sistema.Datos.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jonat\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\jonat\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
