@@ -1,6 +1,6 @@
-﻿namespace Sistema.Web.Models.UsuarioModel
+﻿namespace Sistema.Web.Models.PacienteModel
 {
-    public class UsuarioRegistroModel
+    public class PacienteRegistroModel
     {
         public string nombre {get;set;}
         public string primer_apellido {get;set;}

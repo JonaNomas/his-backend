@@ -10,3 +10,15 @@ C:\Users\jonat\source\repos\Sistema\Sistema.Entidades\obj\Debug\net6.0\Sistema.E
 C:\Users\jonat\source\repos\Sistema\Sistema.Entidades\obj\Debug\net6.0\refint\Sistema.Entidades.dll
 C:\Users\jonat\source\repos\Sistema\Sistema.Entidades\obj\Debug\net6.0\Sistema.Entidades.pdb
 C:\Users\jonat\source\repos\Sistema\Sistema.Entidades\obj\Debug\net6.0\ref\Sistema.Entidades.dll
+C:\Users\jonat\Documents\GitHub\his-backend\Sistema.Entidades\bin\Debug\net6.0\Sistema.Entidades.deps.json
+C:\Users\jonat\Documents\GitHub\his-backend\Sistema.Entidades\bin\Debug\net6.0\Sistema.Entidades.dll
+C:\Users\jonat\Documents\GitHub\his-backend\Sistema.Entidades\bin\Debug\net6.0\Sistema.Entidades.pdb
+C:\Users\jonat\Documents\GitHub\his-backend\Sistema.Entidades\obj\Debug\net6.0\Sistema.Entidades.csproj.AssemblyReference.cache
+C:\Users\jonat\Documents\GitHub\his-backend\Sistema.Entidades\obj\Debug\net6.0\Sistema.Entidades.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jonat\Documents\GitHub\his-backend\Sistema.Entidades\obj\Debug\net6.0\Sistema.Entidades.AssemblyInfoInputs.cache
+C:\Users\jonat\Documents\GitHub\his-backend\Sistema.Entidades\obj\Debug\net6.0\Sistema.Entidades.AssemblyInfo.cs
+C:\Users\jonat\Documents\GitHub\his-backend\Sistema.Entidades\obj\Debug\net6.0\Sistema.Entidades.csproj.CoreCompileInputs.cache
+C:\Users\jonat\Documents\GitHub\his-backend\Sistema.Entidades\obj\Debug\net6.0\Sistema.Entidades.dll
+C:\Users\jonat\Documents\GitHub\his-backend\Sistema.Entidades\obj\Debug\net6.0\refint\Sistema.Entidades.dll
+C:\Users\jonat\Documents\GitHub\his-backend\Sistema.Entidades\obj\Debug\net6.0\Sistema.Entidades.pdb
+C:\Users\jonat\Documents\GitHub\his-backend\Sistema.Entidades\obj\Debug\net6.0\ref\Sistema.Entidades.dll
