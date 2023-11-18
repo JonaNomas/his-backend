@@ -12,9 +12,11 @@ namespace Sistema.Entidades.Estructura
         public int IdCarga { get; set; } 
 
         [Required]
+        [ForeignKey("Titular")]
         public int IdTitular { get; set; }
 
         [Required]
+        [ForeignKey("PacienteCarga")]
         public int IdPacienteCarga { get; set; } 
 
         [Required]
@@ -23,10 +25,8 @@ namespace Sistema.Entidades.Estructura
         [Required]
         public byte Estado { get; set; }
 
-        [ForeignKey("IdTitular")]
-        public virtual Paciente Titular { get; set; }
+        public  Paciente Titular { get; set; }
 
-        [ForeignKey("IdPacienteCarga")]
-        public virtual Paciente PacienteCarga { get; set; }
+        public Paciente PacienteCarga { get; set; }
     }
 }

@@ -16,64 +16,64 @@ namespace Sistema.Entidades.Estructura
 
         [Required]
         [MaxLength(10)]
-        public string Run { get; set; }
+        public string? Run { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string NombrePrimer { get; set; }
+        public string? NombrePrimer { get; set; }
 
         [MaxLength(50)]
-        public string NombreSegundo { get; set; }
+        public string? NombreSegundo { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string ApellidoPaterno { get; set; }
+        public string? ApellidoPaterno { get; set; }
 
         [MaxLength(50)]
-        public string ApellidoMaterno { get; set; }
+        public string? ApellidoMaterno { get; set; }
 
         [Required]
-        public DateTime FechaNacimiento { get; set; }
+        public DateTime? FechaNacimiento { get; set; }
 
         [Required]
         [MaxLength(10)]
-        public string Telefono { get; set; }
+        public string? Telefono { get; set; }
 
         [Required]
         [MaxLength(100)]
-        public string Direccion { get; set; }
+        public string? Direccion { get; set; }
 
         [Required]
         [MaxLength(100)]
-        public string Correo { get; set; }
+        public string? Correo { get; set; }
 
         [MaxLength(100)]
-        public string ContactoEmergencia { get; set; }
+        public string? ContactoEmergencia { get; set; }
 
         [ForeignKey(nameof(Parentesco))]
-        public int IdParentesco { get; set; }
+        public int? IdParentesco { get; set; }
 
         [MaxLength(10)]
-        public string TelefonoEmergencia { get; set; }
+        public string? TelefonoEmergencia { get; set; }
 
         [MaxLength(3)]
-        public string GrupoSanguineo { get; set; }
+        public string? GrupoSanguineo { get; set; }
 
         [Required]
-        public bool Donador { get; set; }
+        public bool? Donador { get; set; }
 
         [MaxLength(50)]
-        public string Prevision { get; set; }
+        public string? Prevision { get; set; }
 
         [MaxLength(50)]
-        public string EstadoCivil { get; set; }
+        public string? EstadoCivil { get; set; }
 
         [Required]
         [MaxLength(1)]
-        public string Sexo { get; set; }
+        public string? Sexo { get; set; }
 
         [MaxLength(100)]
-        public string NombreSocial { get; set; }
+        public string? NombreSocial { get; set; }
 
         public int? EstadoSalud { get; set; }
 

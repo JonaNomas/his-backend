@@ -27,7 +27,7 @@ namespace Sistema.Entidades.Estructura
 
         public Paciente Paciente { get; set; }
 
-        public ProfesionalSalud ProfesionalSalud { get; set; }
+        public ICollection<ProfesionalSalud> ProfesionalSalud { get; set; }
         public ICollection<GrupoUsuario> GrupoUsuarios { get; set; }
         public ICollection<Agenda> Agendas { get; set; }
     }

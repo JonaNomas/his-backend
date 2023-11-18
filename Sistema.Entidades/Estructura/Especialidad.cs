@@ -17,7 +17,7 @@ namespace Sistema.Entidades.Estructura
         public string NombreEspecialidad { get; set; }
 
         // Relaciones
-        public ICollection<ProfesionalSaludEspecialidad> ProfesionalSaludEspecialidades { get; set; }
+        public virtual ICollection<ProfesionalSaludEspecialidad> ProfesionalSaludEspecialidades { get; set; }
     }
 
 }

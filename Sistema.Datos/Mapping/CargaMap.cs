@@ -19,10 +19,10 @@ namespace Sistema.Datos.Mapping
             builder.HasOne(c => c.Titular)
                 .WithMany(t => t.CargasTitular)
                 .HasForeignKey(c => c.IdTitular)
-                .OnDelete(DeleteBehavior.Restrict); // o Cascade si es necesario
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(c => c.PacienteCarga)
-                .WithMany()
+                .WithMany(t => t.CargasCarga)
                 .HasForeignKey(c => c.IdPacienteCarga)
                 .OnDelete(DeleteBehavior.Restrict);
         }

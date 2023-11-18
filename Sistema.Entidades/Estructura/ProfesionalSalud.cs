@@ -11,7 +11,7 @@ namespace Sistema.Entidades.Estructura
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdProfesionalSalud { get; set; }
 
-        [ForeignKey(nameof(Usuario))]
+        [ForeignKey("Usuario")]
         public int IdUsuario { get; set; }
 
         [Required]
