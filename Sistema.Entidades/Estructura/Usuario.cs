@@ -9,23 +9,23 @@ namespace Sistema.Entidades.Estructura
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IdUsuario { get; set; }
+        public int? IdUsuario { get; set; }
 
         [ForeignKey(nameof(Paciente))]
-        public int IdPaciente { get; set; }
+        public int? IdPaciente { get; set; }
 
         [Required]
         [MaxLength(100)]
-        public string Correo { get; set; }
+        public string? Correo { get; set; }
 
         [Required]
         [MaxLength(255)]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         [Required]
-        public byte Estado { get; set; }
+        public bool? Estado { get; set; }
 
-        public Paciente Paciente { get; set; }
+        public Paciente? Paciente { get; set; }
 
         public ICollection<ProfesionalSalud> ProfesionalSalud { get; set; }
         public ICollection<GrupoUsuario> GrupoUsuarios { get; set; }

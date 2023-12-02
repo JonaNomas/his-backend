@@ -9,18 +9,18 @@ namespace Sistema.Entidades.Estructura
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IdGrupoUsuario { get; set; }
+        public int? IdGrupoUsuario { get; set; }
 
         [ForeignKey(nameof(Usuario))]
-        public int IdUsuario { get; set; }
+        public int? IdUsuario { get; set; }
 
         [ForeignKey(nameof(Grupo))]
-        public int IdGrupo { get; set; }
+        public int? IdGrupo { get; set; }
 
         [Required]
-        public byte Estado { get; set; }
+        public bool? Estado { get; set; }
 
-        public Usuario Usuario { get; set; }
-        public Grupo Grupo { get; set; }
+        public Usuario? Usuario { get; set; }
+        public Grupo? Grupo { get; set; }
     }
 }

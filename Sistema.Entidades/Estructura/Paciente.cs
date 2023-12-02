@@ -11,39 +11,31 @@ namespace Sistema.Entidades.Estructura
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdPaciente { get; set; }
 
-        [Required]
         public Guid PacienteUUID { get; set; }
 
-        [Required]
         [MaxLength(10)]
         public string? Run { get; set; }
 
-        [Required]
         [MaxLength(50)]
         public string? NombrePrimer { get; set; }
 
         [MaxLength(50)]
         public string? NombreSegundo { get; set; }
 
-        [Required]
         [MaxLength(50)]
         public string? ApellidoPaterno { get; set; }
 
         [MaxLength(50)]
         public string? ApellidoMaterno { get; set; }
 
-        [Required]
         public DateTime? FechaNacimiento { get; set; }
 
-        [Required]
         [MaxLength(10)]
         public string? Telefono { get; set; }
 
-        [Required]
         [MaxLength(100)]
         public string? Direccion { get; set; }
 
-        [Required]
         [MaxLength(100)]
         public string? Correo { get; set; }
 

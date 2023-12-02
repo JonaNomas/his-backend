@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using Sistema.Datos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sistema.Web
 {
@@ -39,6 +36,30 @@ namespace Sistema.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler(appError =>
+                {
+                    appError.Run(async context =>
+                    {
+                        context.Response.StatusCode = 500;
+                        context.Response.ContentType = "application/json";
+
+                        var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                        if (contextFeature != null)
+                        {
+                            // Aquí puedes agregar el registro del error
+                            // Por ejemplo: _logger.LogError($"Something went wrong: {contextFeature.Error}");
+
+                            await context.Response.WriteAsync(new ErrorDetails
+                            {
+                                StatusCode = context.Response.StatusCode,
+                                Message = contextFeature.Error.Message // Retornar el mensaje de la excepción
+                            }.ToString());
+                        }
+                    });
+                });
+            }
 
             app.UseHttpsRedirection();
 
@@ -57,6 +78,18 @@ namespace Sistema.Web
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mi API v1");
             });
+        }
+    }
+
+    // Clase para detalles de error
+    public class ErrorDetails
+    {
+        public int StatusCode { get; set; }
+        public string Message { get; set; }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

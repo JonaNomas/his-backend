@@ -24,7 +24,7 @@ namespace Sistema.Entidades.Estructura
         public int Duracion { get; set; }
 
         [Required]
-        public byte Estado { get; set; }
+        public Byte Estado { get; set; }
 
         public ProfesionalSalud ProfesionalSalud { get; set; }
         public ICollection<Agenda> Agendas { get; set; }
