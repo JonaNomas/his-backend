@@ -18,6 +18,16 @@ namespace Sistema.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Configuración CORS para permitir cualquier origen, método y encabezado
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+
             services.AddControllers().SetCompatibilityVersion(CompatibilityVersion.Latest);
 
             services.AddDbContext<DbContextSistema>(options =>
@@ -28,6 +38,8 @@ namespace Sistema.Web
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mi API", Version = "v1" });
             });
+
+            // Otros servicios...
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -48,13 +60,11 @@ namespace Sistema.Web
                         var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                         if (contextFeature != null)
                         {
-                            // Aquí puedes agregar el registro del error
-                            // Por ejemplo: _logger.LogError($"Something went wrong: {contextFeature.Error}");
-
+                            // Registro del error...
                             await context.Response.WriteAsync(new ErrorDetails
                             {
                                 StatusCode = context.Response.StatusCode,
-                                Message = contextFeature.Error.Message // Retornar el mensaje de la excepción
+                                Message = contextFeature.Error.Message
                             }.ToString());
                         }
                     });
@@ -64,6 +74,8 @@ namespace Sistema.Web
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("AllowAllOrigins"); // Habilitar CORS con la política definida
 
             app.UseAuthorization();
 

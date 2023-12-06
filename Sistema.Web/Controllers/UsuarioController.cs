@@ -2,12 +2,10 @@
 using Microsoft.IdentityModel.Tokens;
 using Sistema.Datos;
 using Sistema.Web.Models.UsuarioModel;
-using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 
 namespace Sistema.Web.Controllers
 {
@@ -47,6 +45,11 @@ namespace Sistema.Web.Controllers
 
             }).FirstOrDefaultAsync();
 
+            if (sql == null)
+            {
+                return Ok(resp);
+            }
+
             var grupos = await _context.GrupoUsuarios.Where(y => y.IdUsuario == sql.idUsuario).Select(y => new
             {
                 nombre = y.Grupo.Nombre,
@@ -54,10 +57,6 @@ namespace Sistema.Web.Controllers
 
             }).ToListAsync();
 
-
-            if (sql == null) {
-                return Ok(resp);
-            }
 
             var claims = new List<Claim>
                 {
@@ -87,7 +86,11 @@ namespace Sistema.Web.Controllers
 
             return Ok(resp);
         }
+        
+        [HttpPost("[action]")]
+        public async Task<IActionResult> RegistrarUsuario() {
 
-
+            return Ok();
+        }
     }
 }
