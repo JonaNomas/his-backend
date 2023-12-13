@@ -40,6 +40,7 @@ namespace Sistema.Web.Controllers
                 PacienteUUID = Guid.NewGuid(),
                 Run = model.rut,
                 NombrePrimer = model.NombrePrimer,
+                NombreSegundo = model.NombreSegundo,
                 ApellidoMaterno = model.ApellidoMaterno,
                 ApellidoPaterno = model.ApellidoPaterno,
                 ContactoEmergencia = model.ContactoEmergencia,
@@ -50,21 +51,32 @@ namespace Sistema.Web.Controllers
                 Prevision = model.Prevision,
                 FechaNacimiento = model.FechaNacimiento,
                 IdParentesco = 6,
-                Sexo = model.Sexo,
+                Sexo = model.Sexo.ToString(),
+                TelefonoEmergencia = model.TelefonoEmergencia,
+                GrupoSanguineo = model.GrupoSanguineo,
+                EstadoCivil = model.EstadoCivil,
+                NombreSocial = model.NombreSocial,
             };
 
-            _context.Pacientes.Add(p);
-
-            try
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                await _context.SaveChangesAsync();
+                try
+                {
+                    // Código que modifica el contexto
+                    await _context.Pacientes.AddAsync(p);
+                    await _context.SaveChangesAsync();
+                    transaction.Commit();
+                }
+                catch
+                {
+                    // Si hay una excepción, el rollback se realiza aquí
+                    transaction.Rollback();
+                    return BadRequest("No se ha podido guardar al paciente");
+                    throw;
+                }
             }
-            catch (Exception ex) {
 
-                return BadRequest(ex);
-            }
-
-            return Ok();
+            return Ok("Paciente creado");
         
         }
 

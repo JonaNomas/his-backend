@@ -34,7 +34,7 @@
 
         public string? EstadoCivil { get; set; }
 
-        public string? Sexo { get; set; }
+        public char? Sexo { get; set; }
 
         public string? NombreSocial { get; set; }
 
