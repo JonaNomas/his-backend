@@ -32,3 +32,4 @@ C:\Users\jonat\Documents\GitHub\his-backend\Sistema.Datos\obj\Debug\net6.0\refin
 C:\Users\jonat\Documents\GitHub\his-backend\Sistema.Datos\obj\Debug\net6.0\Sistema.Datos.pdb
 C:\Users\jonat\Documents\GitHub\his-backend\Sistema.Datos\obj\Debug\net6.0\Sistema.Datos.genruntimeconfig.cache
 C:\Users\jonat\Documents\GitHub\his-backend\Sistema.Datos\obj\Debug\net6.0\ref\Sistema.Datos.dll
+C:\Users\jonat\Documents\GitHub\his-backend\Sistema.Datos\obj\Debug\net6.0\Sistema.Datos.sourcelink.json

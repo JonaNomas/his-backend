@@ -6,6 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using Sistema.Entidades.Estructura;
 
 namespace Sistema.Web.Controllers
 {
@@ -88,7 +89,20 @@ namespace Sistema.Web.Controllers
         }
         
         [HttpPost("[action]")]
-        public async Task<IActionResult> RegistrarUsuario() {
+        public async Task<IActionResult> RegistrarUsuario([FromBody] RegistroUsuarioModel model) {
+
+            var sql = await _context.Usuarios.Where(x => x.Paciente.Run == model.rut).AnyAsync();
+
+            if (sql) { 
+                return BadRequest("El usuario ya se encuentra registrado");
+            }
+
+            Usuario u = new Usuario { 
+                Password = model.password,
+                Correo = model.correo,
+                
+            
+            };
 
             return Ok();
         }

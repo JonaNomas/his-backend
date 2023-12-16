@@ -80,5 +80,45 @@ namespace Sistema.Web.Controllers
         
         }
 
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ActualizarPaciente([FromBody] PacienteRegistroModel model) {
+
+            var sql = await _context.Pacientes.Where(x => x.Run == model.rut).FirstOrDefaultAsync();
+
+            sql.NombrePrimer = model.NombrePrimer;
+            sql.NombreSegundo = model.NombreSegundo;
+            sql.Correo = model.Correo;
+            sql.Sexo = model.Sexo.ToString();
+            sql.ApellidoMaterno = model.ApellidoMaterno;
+            sql.ApellidoPaterno = model.ApellidoPaterno;
+            sql.Telefono = model.Telefono;
+            sql.Prevision = model.Prevision;
+            sql.TelefonoEmergencia = model.TelefonoEmergencia;
+            sql.ContactoEmergencia = model.ContactoEmergencia;
+            sql.Direccion = model.Direccion;
+            sql.NombreSocial = model.NombreSocial;
+            sql.Donador = model.Donador;
+            sql.Correo = model.Correo;
+
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    // Código que modifica el contexto
+                    await _context.SaveChangesAsync();
+                    transaction.Commit();
+                }
+                catch
+                {
+                    // Si hay una excepción, el rollback se realiza aquí
+                    transaction.Rollback();
+                    return BadRequest("No se ha podido actualizar al paciente");
+                    throw;
+                }
+            }
+
+            return Ok();
+        }
+
     }
 }
