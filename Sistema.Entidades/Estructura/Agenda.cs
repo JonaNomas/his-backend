@@ -20,7 +20,11 @@ namespace Sistema.Entidades.Estructura
         [Required]
         public bool Estado { get; set; }
 
+        [ForeignKey(nameof(Paciente))]
+        public int IdPaciente { get; set; }
+
         public Usuario Usuario { get; set; }
         public Bloque Bloque { get; set; }
+        public Paciente Paciente { get; set; }
     }
 }

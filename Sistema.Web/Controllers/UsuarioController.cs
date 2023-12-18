@@ -43,6 +43,7 @@ namespace Sistema.Web.Controllers
                     correo = x.Correo,
                     idUsuario = x.IdUsuario,
                     Uuid = x.Paciente.PacienteUUID.ToString(),
+                    rut = x.Paciente.Run
 
             }).FirstOrDefaultAsync();
 
@@ -61,7 +62,8 @@ namespace Sistema.Web.Controllers
 
             var claims = new List<Claim>
                 {
-                    new Claim(JwtRegisteredClaimNames.Name, sql.nombre),
+                    new Claim("nombre", sql.nombre),
+                    new Claim("rut", sql.rut),
                     new Claim(JwtRegisteredClaimNames.NameId, sql.Uuid),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };

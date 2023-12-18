@@ -26,7 +26,11 @@ namespace Sistema.Entidades.Estructura
         [Required]
         public Byte Estado { get; set; }
 
-        public ProfesionalSalud ProfesionalSalud { get; set; }
+        [ForeignKey(nameof(especialidad))]
+        public int idEspecialidad { get; set; }
+
+        public ProfesionalSalud? ProfesionalSalud { get; set; }
+        public Especialidad especialidad { get; set; }
         public ICollection<Agenda> Agendas { get; set; }
     }
 }

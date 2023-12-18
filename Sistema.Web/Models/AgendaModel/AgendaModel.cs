@@ -10,5 +10,7 @@
         public DateTime? fechaCreacion { get; set; }
         public int? duracion { get; set; }
         public byte? Estado { get; set; }
+        public string? Especialidad { get; set; }
+        public int? IdEspecialidad { get; set; }
     }
 }

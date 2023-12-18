@@ -4,6 +4,7 @@
     {
         public int duracion { get; set; }
         public int idProfesional { get; set; }
+        public int idEspecialidad { get; set; }
         public DateTime? inicio { get; set; }
         public DateTime? fin { get; set; }
         public TimeSpan? horaInicio { get; set; }

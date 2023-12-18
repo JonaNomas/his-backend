@@ -17,7 +17,7 @@ namespace Sistema.Entidades.Estructura
         public string Nombre { get; set; }
 
         [Required]
-        public byte Estado { get; set; }
+        public bool Estado { get; set; }
 
         // Relaciones
         public ICollection<GrupoUsuario> GrupoUsuarios { get; set; }

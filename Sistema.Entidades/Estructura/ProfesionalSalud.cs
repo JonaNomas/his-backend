@@ -15,11 +15,11 @@ namespace Sistema.Entidades.Estructura
         public int IdUsuario { get; set; }
 
         [Required]
-        public byte Estado { get; set; }
+        public bool Estado { get; set; }
 
-        public Usuario Usuario { get; set; }
+        public Usuario? Usuario { get; set; }
 
-        public ICollection<ProfesionalSaludEspecialidad> ProfesionalSaludEspecialidades { get; set; }
+        public ICollection<ProfesionalSaludEspecialidad>? ProfesionalSaludEspecialidades { get; set; }
         public ICollection<Bloque> Bloques { get; set; }
     }
 }

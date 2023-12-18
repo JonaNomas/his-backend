@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Sistema.Datos;
 using Sistema.Entidades.Estructura;
 using Sistema.Web.Models.AgendaModel;
@@ -19,13 +20,38 @@ namespace Sistema.Web.Controllers
 
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> obtenerAgenda() {
+        public async Task<IActionResult> obtenerAgenda([FromBody] ParametrosAgendaModel model) {
 
-            var agenda = await _context.Agendas
+            var paciente = false;
+            IQueryable<Agenda> sql = _context.Agendas;
+            IQueryable<Bloque> sql2 = _context.Bloques;
+
+            if (model.idProfesional > 0)
+            {
+                sql = sql.Where(x => x.Bloque.IdProfesionalSalud == model.idProfesional);
+                sql2 = sql2.Where(x => x.IdProfesionalSalud == model.idProfesional);
+            }
+            if (model.idEspecialidad > 0) {
+                sql = sql.Where(x => x.Bloque.idEspecialidad == model.idEspecialidad);
+                sql2 = sql2.Where(x => x.idEspecialidad == model.idEspecialidad);
+            }
+
+            if (!model.rutPaciente.IsNullOrEmpty()) { 
+                var p = await _context.Pacientes.Where(x => x.Run == model.rutPaciente).FirstOrDefaultAsync();
+                if (p == null) {
+                    return BadRequest("El rut no cuenta con horas");
+                };
+                sql = sql.Where(x => x.Paciente.IdPaciente == p.IdPaciente);
+                paciente = true;
+            }
+
+
+            var agenda = await sql
+                .Where(x => x.Bloque.FechaHora.Month == model.mes && x.Bloque.FechaHora.Year == model.ano && x.Estado)
                 .Select(x => new AgendaModel
                 {
                     idBloque = x.IdBloque,
-                    name = x.Usuario.Paciente.NombrePrimer,
+                    name = x.Paciente.NombrePrimer+" "+x.Paciente.ApellidoPaterno+" "+x.Paciente.ApellidoMaterno,
                     start = x.Bloque.FechaHora,
                     profesionalSalud = new ProfesionalSaludModel
                     {
@@ -40,33 +66,41 @@ namespace Sistema.Web.Controllers
                     },
                     fechaCreacion = x.Bloque.FechaCreacion,
                     duracion = x.Bloque.Duracion,
-                    Estado = x.Bloque.Estado
+                    Estado = x.Bloque.Estado,
+                    Especialidad = x.Bloque.especialidad.NombreEspecialidad,
+                    IdEspecialidad = x.Bloque.idEspecialidad
                 }).ToListAsync();
 
             var idsAgenda = agenda.Select(a => a.idBloque).ToList();
 
-            var bloque = await _context.Bloques.Where(x => !idsAgenda.Contains(x.IdBloque)).Select(x => new AgendaModel
-             {
-                idBloque = x.IdBloque,
-                name = "Disponible",
-                start = x.FechaHora,
-                profesionalSalud = new ProfesionalSaludModel
-                  {
-                    nombre = x.ProfesionalSalud.Usuario.Paciente.NombrePrimer+" "+ x.ProfesionalSalud.Usuario.Paciente.ApellidoPaterno + " " + x.ProfesionalSalud.Usuario.Paciente.ApellidoMaterno,
-                    especialidad = "",
-                    rut = x.ProfesionalSalud.Usuario.Paciente.Run
-                },
-                 responsable = new ResponsableModel
-                 {
-                   nombre = "",
-                   rut = ""
-                 },
-                 fechaCreacion = x.FechaCreacion,
-                 duracion = x.Duracion,
-                 Estado = x.Estado
+            if (!paciente) {
+                var bloque = await sql2
+                .Where(x => !idsAgenda.Contains(x.IdBloque) && x.FechaHora.Month == model.mes && x.FechaHora.Year == model.ano)
+                .Select(x => new AgendaModel
+                {
+                    idBloque = x.IdBloque,
+                    name = "Disponible",
+                    start = x.FechaHora,
+                    profesionalSalud = new ProfesionalSaludModel
+                    {
+                        nombre = x.ProfesionalSalud.Usuario.Paciente.NombrePrimer + " " + x.ProfesionalSalud.Usuario.Paciente.ApellidoPaterno + " " + x.ProfesionalSalud.Usuario.Paciente.ApellidoMaterno,
+                        especialidad = "",
+                        rut = x.ProfesionalSalud.Usuario.Paciente.Run
+                    },
+                    responsable = new ResponsableModel
+                    {
+                        nombre = "",
+                        rut = ""
+                    },
+                    fechaCreacion = x.FechaCreacion,
+                    duracion = x.Duracion,
+                    Estado = x.Estado,
+                    Especialidad = x.especialidad.NombreEspecialidad,
+                    IdEspecialidad = x.idEspecialidad
                 }).ToListAsync();
 
-             agenda.AddRange(bloque);
+                agenda.AddRange(bloque);
+            }
              return Ok(agenda);
         }
         
@@ -101,6 +135,7 @@ namespace Sistema.Web.Controllers
                         FechaHora = horaInicioBloque,
                         FechaCreacion = DateTime.Now,
                         Duracion = parametros.duracion,
+                        idEspecialidad = parametros.idEspecialidad,
                         Estado = 1 // o el estado por defecto que corresponda
                     };
 
@@ -111,7 +146,57 @@ namespace Sistema.Web.Controllers
                 fechaActual = fechaActual.AddDays(1); // Mover al siguiente día
             }
 
-            await _context.SaveChangesAsync();
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    return BadRequest("No se ha podido guardar al paciente");
+                    throw;
+                }
+            }
+            return Ok();
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> agendar([FromBody] AgendarModel model) {
+
+            if (!ModelState.IsValid) {
+                return BadRequest("Datos invalidos");
+            }
+
+            var u = await _context.Usuarios.Where(x => x.Paciente.Run == model.rutUsuario).FirstOrDefaultAsync();
+            var p = await _context.Pacientes.Where(x => x.Run == model.rutPaciente).FirstOrDefaultAsync();
+
+            Agenda a = new Agenda { 
+            
+                IdUsuario = u.IdUsuario,
+                IdBloque = model.idBloque,
+                IdPaciente = p.IdPaciente,
+                Estado = true
+            };
+
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    _context.Agendas.Add(a);
+                    await _context.SaveChangesAsync();
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    return BadRequest("No se ha podido guardar al paciente");
+                    throw;
+                }
+            }
+
             return Ok();
         }
     }

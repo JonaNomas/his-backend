@@ -9,7 +9,7 @@ namespace Sistema.Entidades.Estructura
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int? IdUsuario { get; set; }
+        public int IdUsuario { get; set; }
 
         [ForeignKey(nameof(Paciente))]
         public int? IdPaciente { get; set; }
