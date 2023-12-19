@@ -20,90 +20,100 @@ namespace Sistema.Web.Controllers
 
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> obtenerAgenda([FromBody] ParametrosAgendaModel model) {
+        public async Task<IActionResult> ObtenerAgenda([FromBody] ParametrosAgendaModel model)
+        {
+            if (model == null)
+            {
+                return BadRequest("Modelo de parámetros no proporcionado.");
+            }
 
-            var paciente = false;
-            IQueryable<Agenda> sql = _context.Agendas;
-            IQueryable<Bloque> sql2 = _context.Bloques;
+            var queryAgendas = _context.Agendas.AsQueryable();
+            var queryBloques = _context.Bloques.AsQueryable();
 
             if (model.idProfesional > 0)
             {
-                sql = sql.Where(x => x.Bloque.IdProfesionalSalud == model.idProfesional);
-                sql2 = sql2.Where(x => x.IdProfesionalSalud == model.idProfesional);
+                queryAgendas = queryAgendas.Where(x => x.Bloque.IdProfesionalSalud == model.idProfesional);
+                queryBloques = queryBloques.Where(x => x.IdProfesionalSalud == model.idProfesional);
             }
-            if (model.idEspecialidad > 0) {
-                sql = sql.Where(x => x.Bloque.idEspecialidad == model.idEspecialidad);
-                sql2 = sql2.Where(x => x.idEspecialidad == model.idEspecialidad);
-            }
-
-            if (!model.rutPaciente.IsNullOrEmpty()) { 
-                var p = await _context.Pacientes.Where(x => x.Run == model.rutPaciente).FirstOrDefaultAsync();
-                if (p == null) {
-                    return BadRequest("El rut no cuenta con horas");
-                };
-                sql = sql.Where(x => x.Paciente.IdPaciente == p.IdPaciente);
-                paciente = true;
+            if (model.idEspecialidad > 0)
+            {
+                queryAgendas = queryAgendas.Where(x => x.Bloque.idEspecialidad == model.idEspecialidad);
+                queryBloques = queryBloques.Where(x => x.idEspecialidad == model.idEspecialidad);
             }
 
+            Paciente paciente = null;
+            if (!string.IsNullOrEmpty(model.rutPaciente))
+            {
+                paciente = await _context.Pacientes.FirstOrDefaultAsync(x => x.Run == model.rutPaciente);
+                if (paciente == null)
+                {
+                    return BadRequest("El rut no cuenta con horas.");
+                }
+                queryAgendas = queryAgendas.Where(x => x.IdPaciente == paciente.IdPaciente);
+            }
 
-            var agenda = await sql
+            var agendas = await queryAgendas
                 .Where(x => x.Bloque.FechaHora.Month == model.mes && x.Bloque.FechaHora.Year == model.ano && x.Estado)
                 .Select(x => new AgendaModel
                 {
                     idBloque = x.IdBloque,
-                    name = x.Paciente.NombrePrimer+" "+x.Paciente.ApellidoPaterno+" "+x.Paciente.ApellidoMaterno,
+                    name = x.Paciente.NombrePrimer + " " + x.Paciente.ApellidoPaterno + " " + x.Paciente.ApellidoMaterno,
                     start = x.Bloque.FechaHora,
+                    rutPaciente = x.Paciente.Run,
                     profesionalSalud = new ProfesionalSaludModel
                     {
                         nombre = x.Bloque.ProfesionalSalud.Usuario.Paciente.NombrePrimer + " " + x.Bloque.ProfesionalSalud.Usuario.Paciente.ApellidoPaterno + " " + x.Bloque.ProfesionalSalud.Usuario.Paciente.ApellidoMaterno,
-                        especialidad = "",
+                        especialidad = x.Bloque.especialidad.NombreEspecialidad,
                         rut = x.Bloque.ProfesionalSalud.Usuario.Paciente.Run
                     },
                     responsable = new ResponsableModel
                     {
-                        nombre = "",
-                        rut = ""
+                        nombre = x.Usuario.Paciente.NombrePrimer + " " + x.Usuario.Paciente.ApellidoPaterno + " " + x.Usuario.Paciente.ApellidoMaterno, 
+                        rut = x.Usuario.Paciente.Run
                     },
                     fechaCreacion = x.Bloque.FechaCreacion,
                     duracion = x.Bloque.Duracion,
                     Estado = x.Bloque.Estado,
                     Especialidad = x.Bloque.especialidad.NombreEspecialidad,
                     IdEspecialidad = x.Bloque.idEspecialidad
-                }).ToListAsync();
+                })
+                .ToListAsync();
 
-            var idsAgenda = agenda.Select(a => a.idBloque).ToList();
-
-            if (!paciente) {
-                var bloque = await sql2
-                .Where(x => !idsAgenda.Contains(x.IdBloque) && x.FechaHora.Month == model.mes && x.FechaHora.Year == model.ano)
-                .Select(x => new AgendaModel
-                {
-                    idBloque = x.IdBloque,
-                    name = "Disponible",
-                    start = x.FechaHora,
-                    profesionalSalud = new ProfesionalSaludModel
+            if (paciente == null)
+            {
+                var idsAgenda = agendas.Select(a => a.idBloque).ToList();
+                var bloquesDisponibles = await queryBloques
+                    .Where(x => !idsAgenda.Contains(x.IdBloque) && x.FechaHora.Month == model.mes && x.FechaHora.Year == model.ano)
+                    .Select(x => new AgendaModel
                     {
-                        nombre = x.ProfesionalSalud.Usuario.Paciente.NombrePrimer + " " + x.ProfesionalSalud.Usuario.Paciente.ApellidoPaterno + " " + x.ProfesionalSalud.Usuario.Paciente.ApellidoMaterno,
-                        especialidad = "",
-                        rut = x.ProfesionalSalud.Usuario.Paciente.Run
-                    },
-                    responsable = new ResponsableModel
-                    {
-                        nombre = "",
-                        rut = ""
-                    },
-                    fechaCreacion = x.FechaCreacion,
-                    duracion = x.Duracion,
-                    Estado = x.Estado,
-                    Especialidad = x.especialidad.NombreEspecialidad,
-                    IdEspecialidad = x.idEspecialidad
-                }).ToListAsync();
+                        idBloque = x.IdBloque,
+                        name = "Disponible",
+                        start = x.FechaHora,
+                        profesionalSalud = new ProfesionalSaludModel
+                        {
+                            nombre = x.ProfesionalSalud.Usuario.Paciente.NombrePrimer + " " + x.ProfesionalSalud.Usuario.Paciente.ApellidoPaterno + " " + x.ProfesionalSalud.Usuario.Paciente.ApellidoMaterno,
+                            especialidad = x.especialidad.NombreEspecialidad,
+                            rut = x.ProfesionalSalud.Usuario.Paciente.Run
+                        },
+                        responsable = new ResponsableModel
+                        {
+                            nombre = "", 
+                            rut = "" 
+                        },
+                        fechaCreacion = x.FechaCreacion,
+                        duracion = x.Duracion,
+                        Estado = x.Estado,
+                        Especialidad = x.especialidad.NombreEspecialidad,
+                        IdEspecialidad = x.idEspecialidad
+                    })
+                    .ToListAsync();
 
-                agenda.AddRange(bloque);
+                agendas.AddRange(bloquesDisponibles);
             }
-             return Ok(agenda);
+
+            return Ok(agendas);
         }
-        
+
         [HttpPost("[action]")]
         public async Task<IActionResult> crearAgenda([FromBody]CrearAgendaModel parametros) {
 

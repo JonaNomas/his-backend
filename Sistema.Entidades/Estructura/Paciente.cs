@@ -78,6 +78,7 @@ namespace Sistema.Entidades.Estructura
         public ICollection<Carga> CargasTitular { get; set; }
         public ICollection<Carga> CargasCarga { get; set; }
         public ICollection<Bloque> Bloque { get; set; }
+        public ICollection<Laboratorio> Laboratorios { get; set; }
     }
 
 }

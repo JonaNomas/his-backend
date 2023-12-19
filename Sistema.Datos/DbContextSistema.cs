@@ -18,6 +18,13 @@ namespace Sistema.Datos
         public DbSet<ProfesionalSaludEspecialidad> ProfesionalesSaludEspecialidades { get; set; }
         public DbSet<Bloque> Bloques { get; set; }
         public DbSet<Agenda> Agendas { get; set; }
+        public DbSet<TipoExamenLaboratorio> TipoExamenLaboratorios { get; set; }
+        public DbSet<ResultadosExamenes> ResultadosExamenes { get; set; }
+        public DbSet<Laboratorio> Laboratorios { get; set; }
+        public DbSet<ExamenLaboratorio> ExamenLaboratorios { get; set; }
+
+
+
 
 
         public DbContextSistema(DbContextOptions<DbContextSistema> options) : base(options)
@@ -39,7 +46,12 @@ namespace Sistema.Datos
             modelBuilder.ApplyConfiguration(new ProfesionalSaludEspecialidadMap());
             modelBuilder.ApplyConfiguration(new BloqueMap());
             modelBuilder.ApplyConfiguration(new AgendaMap());
-        }
+            modelBuilder.ApplyConfiguration(new TipoExamenLaboratorioMap());
+            modelBuilder.ApplyConfiguration(new ResultadosExamenesMap());
+            modelBuilder.ApplyConfiguration(new LaboratorioMap());
+            modelBuilder.ApplyConfiguration(new ExamenLaboratorioMap());
 
         }
+
+    }
 }

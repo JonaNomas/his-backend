@@ -4,6 +4,7 @@
     {
         public int? idBloque { get; set; }
         public string? name {get; set;}
+        public string? rutPaciente { get; set;}
         public DateTime?  start { get; set;}
         public ProfesionalSaludModel? profesionalSalud {get; set;}
         public ResponsableModel? responsable {get; set;}
